@@ -19,17 +19,13 @@ public class Program {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        //Sort List
-        Process[] sortedList = new Process[processList.length];
-        for (Process process : processList) {
-            sortedList[process.getProcessID()-1] = process;
-        }
+
         //Output CSV File
         try {
             BufferedWriter output = new BufferedWriter(new FileWriter("output.csv"));
             output.write("Process ID,Service Time,Arrival Time,Start Time,End Time, Initial Wait Time,Total Wait Time,Turnaround Time");
             output.newLine();
-            for (Process process : sortedList) {
+            for (Process process : processList) {
                 output.write(process.getProcessID() + ",");
                 output.write(process.getServiceTime() + ",");
                 output.write(process.getArrivalTime() + ",");
