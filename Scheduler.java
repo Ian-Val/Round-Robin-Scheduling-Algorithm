@@ -4,44 +4,46 @@ public class Scheduler {
     int clockTime;
     int quantum;
     int contextSwitch;
-    ArrayList readyQueue;
+    Queue readyQueue;
+    Process[] processes;
 
-    public Scheduler (int quantum, int contextSwitch, ArrayList readyQueue) {
+    public Scheduler (int quantum, int contextSwitch, Process[] processes) {
         this.clockTime = 0;
         this.quantum = quantum;
         this.contextSwitch = contextSwitch;
-        this.readyQueue = readyQueue;
+        this.processes = processes;
     }
 
-    public void Run() {
+    public void Run() throws Exception{
+        readyQueue = new Queue(5);
         Process currentProcess;
-        currentProcess = (Process)readyQueue.getFirst();
-        while (!readyQueue.isEmpty()) {
-            if (clockTime < currentProcess.getArrivalTime()) {
-                continue;
+        while (clockTime < 250) {
+            //System.out.println("Clock Time: " + clockTime);
+            //Set Start Time
+            for (int i = 0; i < processes.length; i++) {
+                if (processes[i] != null && processes[i].getArrivalTime() <= clockTime) {
+                    readyQueue.Enqueue(processes[i]);
+                    processes[i].setStartTime(clockTime);
+                    processes[i] = null;
+                }
             }
-            System.out.println("Process " + currentProcess.getProcessID() + " is running!");
+            //Execute One Process
+            currentProcess = readyQueue.Dequeue();
+            //System.out.println("\tP" + currentProcess.getProcessID() + " is executing!");
+            //System.out.print("\tP" + currentProcess.getProcessID() + " Time: " + currentProcess.getTimeRemaining() + " => ");
             currentProcess.ExecuteProcess(quantum, clockTime);
-            clockTime += quantum;
-            if (currentProcess.getServiceTime() <= 0) {
-                readyQueue.remove(currentProcess);
-                System.out.println("Process " + currentProcess.getProcessID() + " done!");
+            //System.out.println(currentProcess.getTimeRemaining());
+            if (currentProcess.getTimeRemaining() <= 0) {
+                //System.out.println("\tP" + currentProcess.getProcessID() + " is done!");
+                this.clockTime += currentProcess.getTimeRemaining();
+                currentProcess.setEndTime(clockTime);
+                System.out.println(currentProcess);
+            } else {
+                readyQueue.Enqueue(currentProcess);
             }
-            System.out.println("Clock Time: "  + clockTime);
-
-            if (currentProcess == readyQueue.getLast()){
-                currentProcess = (Process)readyQueue.getFirst();
-                continue;
-            }
-            if ((Process)readyQueue.get(readyQueue.indexOf(currentProcess) + 1) != null) {
-                currentProcess = (Process)readyQueue.get(readyQueue.indexOf(currentProcess) + 1);
-            }
+            
+            clockTime+= quantum;
         }
-        System.out.println("Finished All Processes");
-        //Run through all programs with the round robin
-        //Print when there is a program running
-        //Print when there is a context switch
-        //Print when a program ends execution
-        //Print when all processes are finished
+        //System.out.println("Finished All Processes");
     }
 }

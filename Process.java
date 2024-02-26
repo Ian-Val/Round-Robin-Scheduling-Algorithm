@@ -2,6 +2,7 @@ public class Process {
 
     private int processID;
     private int serviceTime;
+    private int TimeRemaining;
     private int arrivalTime;
     private int startTime;
     private int endTime;
@@ -14,17 +15,24 @@ public class Process {
         this.serviceTime = serviceTime;
         this.arrivalTime = arrivalTime;
         this.startTime = -1;
+        this.TimeRemaining = serviceTime;
     }
     
     public void ExecuteProcess(int quantum, int clockTime) {
         if (startTime == -1) {
             this.startTime = clockTime;
         }
-        serviceTime -= quantum;
+        TimeRemaining -= quantum;
     }
-
-    public int getServiceTime () {
-        return serviceTime;
+    public void setStartTime(int startTime) {
+        this.startTime = startTime;
+    }
+    public void setEndTime(int endTime) {
+        this.endTime = endTime;
+        CalculateTurnAroundTime();
+    }
+    public int getTimeRemaining () {
+        return TimeRemaining;
     }
     public int getProcessID () {
         return processID;
@@ -32,16 +40,19 @@ public class Process {
     public int getArrivalTime () {
         return arrivalTime;
     }
-
-    public int CalculateTurnAroundTime () {
+    public void CalculateTurnAroundTime () {
         turnAroundTime = endTime - arrivalTime;
-        return turnAroundTime;
     }
-
     @Override
     public String toString() {
-        String output = String.format("Process %d\n   Service Time: %d\n   Arrival Time: %d\n", processID, serviceTime, arrivalTime);
+        String output = "";
+        output += String.format("Process ID: %d\n ", processID);
+        output += String.format("Service Time: %d\n ", serviceTime);
+        output += String.format("Arrival Time: %d\n ", arrivalTime);
+        output += String.format("Start Time:  %d\n ", startTime);
+        output += String.format("End Time: %d\n ", endTime);
+        output += String.format("Total Wait Time: %d\n ", totalWaitTime);
+        output += String.format("Turnaround Time: %d\n ", turnAroundTime);
         return output;
     }
-
 }
