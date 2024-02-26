@@ -54,11 +54,13 @@ public class Scheduler {
             clockTime += quantum;
         }
         //Return the array of processes
-         //Sort List
+
+        //Sort List by ID
         Process[] sortedList = new Process[finishedProcesses.length];
             for (Process process : finishedProcesses) {
                 sortedList[process.getProcessID()-1] = process;
             }
+        
         return sortedList;
     }
 }
