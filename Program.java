@@ -1,10 +1,10 @@
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.Buffer;
 
 public class Program {
     public static void main(String[] args) {
+        //Initialize List
         Process[] processList = {
             new Process(1, 75, 0),
             new Process(2, 40, 10),
@@ -19,14 +19,14 @@ public class Program {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        //Sort ProcessList by ID
+        //Sort List
         Process[] sortedList = new Process[processList.length];
         for (Process process : processList) {
             sortedList[process.getProcessID()-1] = process;
         }
-        BufferedWriter output;
+        //Output CSV File
         try {
-            output = new BufferedWriter(new FileWriter("output.csv"));
+            BufferedWriter output = new BufferedWriter(new FileWriter("output.csv"));
             output.write("Process ID,Service Time,Arrival Time,Start Time,End Time, Initial Wait Time,Total Wait Time,Turnaround Time");
             output.newLine();
             for (Process process : sortedList) {
@@ -44,14 +44,5 @@ public class Program {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-        
-        //Output Process List
-        for (Process process : sortedList) {
-            System.out.println(process);
-        }
-
-
-
-        
     }
 }

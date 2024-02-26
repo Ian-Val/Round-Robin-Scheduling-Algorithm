@@ -5,6 +5,7 @@ public class Scheduler {
     Queue readyQueue;
     Process[] processes;
 
+    //Constuctor
     public Scheduler (int quantum, int contextSwitch, Process[] processes) {
         this.clockTime = 0;
         this.quantum = quantum;
@@ -13,15 +14,17 @@ public class Scheduler {
     }
 
     public Process[] Run() throws Exception{
+        //Initialize Variables
         readyQueue = new Queue(5);
         Process currentProcess;
         Process[] finishedProcesses = new Process[processes.length];
         int finishedProcessesSize = 0;
-        while (clockTime < 250) {
+
+
+        while (finishedProcessesSize < finishedProcesses.length) {
             for (int i = 0; i < processes.length; i++) {
                 if (processes[i] != null && processes[i].getArrivalTime() <= clockTime) {
                     readyQueue.Enqueue(processes[i]);
-                    processes[i].setStartTime(clockTime);
                     processes[i] = null;
                 }
             }
@@ -33,7 +36,6 @@ public class Scheduler {
             if (currentProcess.getTimeRemaining() <= 0) {
                 this.clockTime += currentProcess.getTimeRemaining();
                 currentProcess.setEndTime(clockTime);
-                //System.out.println(currentProcess);
                 finishedProcesses[finishedProcessesSize] = currentProcess;
                 finishedProcessesSize++;
             } else {

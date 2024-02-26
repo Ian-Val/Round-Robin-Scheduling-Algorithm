@@ -10,7 +10,7 @@ public class Process {
     private int totalWaitTime;
     private int turnAroundTime;
     
-    
+    //Constructor
     public Process (int processID, int serviceTime, int arrivalTime) {
         this.processID = processID; 
         this.serviceTime = serviceTime;
@@ -19,13 +19,7 @@ public class Process {
         this.startTime = -1;
         this.totalWaitTime = 0;
     }
-    
-    public void ExecuteProcess(int quantum, int clockTime) {
-        if (startTime == -1) {
-            this.startTime = clockTime;
-        }
-        TimeRemaining -= quantum;
-    }
+    //Setters
     public void setStartTime(int startTime) {
         this.startTime = startTime;
         CalculateInitialWaitTime();
@@ -37,7 +31,7 @@ public class Process {
     public void addWaitTime(int waitTime) {
         this.totalWaitTime += waitTime;
     }
-
+    //Getters
     public int getProcessID () {
         return processID;
     }
@@ -65,7 +59,16 @@ public class Process {
     public int getTurnAroundTime () {
         return turnAroundTime;
     }
+
+    //Execution Method
+    public void ExecuteProcess(int quantum, int clockTime) {
+        if (startTime == -1) {
+            this.startTime = clockTime;
+        }
+        TimeRemaining -= quantum;
+    }
     
+    //Calculation Methods
     private void CalculateTurnAroundTime () {
         turnAroundTime = endTime - arrivalTime;
         CalculateTotalWaitTime();
