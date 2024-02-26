@@ -37,14 +37,33 @@ public class Process {
     public void addWaitTime(int waitTime) {
         this.totalWaitTime += waitTime;
     }
-    public int getTimeRemaining () {
-        return TimeRemaining;
-    }
+
     public int getProcessID () {
         return processID;
     }
+    public int getServiceTime () {
+        return serviceTime;
+    }
+    public int getTimeRemaining () {
+        return TimeRemaining;
+    }
     public int getArrivalTime () {
         return arrivalTime;
+    }
+    public int getStartTime () {
+        return startTime;
+    }
+    public int getEndTime () {
+        return endTime;
+    }
+    public int getInitialWaitTime () {
+        return initialWaitTime;
+    }
+    public int getTotalWaitTime () {
+        return totalWaitTime;
+    }
+    public int getTurnAroundTime () {
+        return turnAroundTime;
     }
     private void CalculateTurnAroundTime () {
         turnAroundTime = endTime - arrivalTime;
@@ -56,6 +75,7 @@ public class Process {
     private void CalculateTotalWaitTime () {
         totalWaitTime = turnAroundTime - serviceTime;
     }
+
     @Override
     public String toString() {
         String output = "";
