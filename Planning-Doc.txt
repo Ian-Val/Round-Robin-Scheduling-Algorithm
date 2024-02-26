@@ -1,0 +1,10 @@
+Planning-Doc.txt
+
+
+Create a Process Class
+Create a Scheduler Class
+
+In Program Class
+    Create a Queue of Processes
+    Run CPU Scheduler
+    Print output
