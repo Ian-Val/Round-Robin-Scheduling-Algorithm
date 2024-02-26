@@ -6,6 +6,7 @@ public class Process {
     private int arrivalTime;
     private int startTime;
     private int endTime;
+    private int initialWaitTime;
     private int totalWaitTime;
     private int turnAroundTime;
     
@@ -14,8 +15,9 @@ public class Process {
         this.processID = processID; 
         this.serviceTime = serviceTime;
         this.arrivalTime = arrivalTime;
-        this.startTime = -1;
         this.TimeRemaining = serviceTime;
+        this.startTime = -1;
+        this.totalWaitTime = 0;
     }
     
     public void ExecuteProcess(int quantum, int clockTime) {
@@ -26,10 +28,14 @@ public class Process {
     }
     public void setStartTime(int startTime) {
         this.startTime = startTime;
+        CalculateInitialWaitTime();
     }
     public void setEndTime(int endTime) {
         this.endTime = endTime;
         CalculateTurnAroundTime();
+    }
+    public void addWaitTime(int waitTime) {
+        this.totalWaitTime += waitTime;
     }
     public int getTimeRemaining () {
         return TimeRemaining;
@@ -40,8 +46,15 @@ public class Process {
     public int getArrivalTime () {
         return arrivalTime;
     }
-    public void CalculateTurnAroundTime () {
+    private void CalculateTurnAroundTime () {
         turnAroundTime = endTime - arrivalTime;
+        CalculateTotalWaitTime();
+    }
+    private void CalculateInitialWaitTime () {
+        initialWaitTime = startTime - arrivalTime;
+    }
+    private void CalculateTotalWaitTime () {
+        totalWaitTime = turnAroundTime - serviceTime;
     }
     @Override
     public String toString() {
@@ -51,6 +64,7 @@ public class Process {
         output += String.format("Arrival Time: %d\n ", arrivalTime);
         output += String.format("Start Time:  %d\n ", startTime);
         output += String.format("End Time: %d\n ", endTime);
+        output += String.format("Initial Wait Time: %d\n ", initialWaitTime);
         output += String.format("Total Wait Time: %d\n ", totalWaitTime);
         output += String.format("Turnaround Time: %d\n ", turnAroundTime);
         return output;

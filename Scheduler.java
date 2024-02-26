@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Scheduler {
     int clockTime;
     int quantum;
@@ -41,8 +39,8 @@ public class Scheduler {
             } else {
                 readyQueue.Enqueue(currentProcess);
             }
-            
-            clockTime+= quantum;
+            clockTime += quantum;
+            //Add wait time 
         }
         //System.out.println("Finished All Processes");
     }
