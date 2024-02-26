@@ -65,6 +65,7 @@ public class Process {
     public int getTurnAroundTime () {
         return turnAroundTime;
     }
+    
     private void CalculateTurnAroundTime () {
         turnAroundTime = endTime - arrivalTime;
         CalculateTotalWaitTime();
