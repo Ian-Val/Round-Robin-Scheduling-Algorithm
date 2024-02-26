@@ -4,6 +4,7 @@ import java.io.IOException;
 
 public class Program {
     public static void main(String[] args) {
+
         //Initialize List
         Process[] processList = {
             new Process(1, 75, 0),
@@ -13,6 +14,7 @@ public class Program {
             new Process(5, 45, 85)
         };
         Scheduler scheduler = new Scheduler(10,0, processList);
+        
         //Run Scheduler Program
         try {
             processList = scheduler.Run();       
