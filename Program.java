@@ -9,10 +9,12 @@ public class Program {
         };
         Scheduler scheduler = new Scheduler(10,0, processList);
         try {
-            scheduler.Run();       
+            processList = scheduler.Run();       
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
+        for (Process process : processList) {
+            System.out.println(process);
+        }
     }
 }

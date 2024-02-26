@@ -12,12 +12,12 @@ public class Scheduler {
         this.processes = processes;
     }
 
-    public void Run() throws Exception{
+    public Process[] Run() throws Exception{
         readyQueue = new Queue(5);
         Process currentProcess;
+        Process[] finishedProcesses = new Process[processes.length];
+        int finishedProcessesSize = 0;
         while (clockTime < 250) {
-            //System.out.println("Clock Time: " + clockTime);
-            //Set Start Time
             for (int i = 0; i < processes.length; i++) {
                 if (processes[i] != null && processes[i].getArrivalTime() <= clockTime) {
                     readyQueue.Enqueue(processes[i]);
@@ -25,23 +25,22 @@ public class Scheduler {
                     processes[i] = null;
                 }
             }
-            //Execute One Process
+            if (readyQueue.isEmpty()) {
+                break;
+            }
             currentProcess = readyQueue.Dequeue();
-            //System.out.println("\tP" + currentProcess.getProcessID() + " is executing!");
-            //System.out.print("\tP" + currentProcess.getProcessID() + " Time: " + currentProcess.getTimeRemaining() + " => ");
             currentProcess.ExecuteProcess(quantum, clockTime);
-            //System.out.println(currentProcess.getTimeRemaining());
             if (currentProcess.getTimeRemaining() <= 0) {
-                //System.out.println("\tP" + currentProcess.getProcessID() + " is done!");
                 this.clockTime += currentProcess.getTimeRemaining();
                 currentProcess.setEndTime(clockTime);
-                System.out.println(currentProcess);
+                //System.out.println(currentProcess);
+                finishedProcesses[finishedProcessesSize] = currentProcess;
+                finishedProcessesSize++;
             } else {
                 readyQueue.Enqueue(currentProcess);
             }
             clockTime += quantum;
-            //Add wait time 
         }
-        //System.out.println("Finished All Processes");
+        return finishedProcesses;
     }
 }
