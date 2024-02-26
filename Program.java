@@ -33,7 +33,9 @@ public class Program {
                 output.write(process.getProcessID() + ",");
                 output.write(process.getServiceTime() + ",");
                 output.write(process.getArrivalTime() + ",");
+                output.write(process.getStartTime() + ",");
                 output.write(process.getEndTime() + ",");
+                output.write(process.getInitialWaitTime() + ",");
                 output.write(process.getTotalWaitTime() + ",");
                 output.write(process.getTurnAroundTime() + "");
                 output.newLine();
