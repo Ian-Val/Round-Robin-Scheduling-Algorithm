@@ -59,14 +59,14 @@ public class Process {
     @Override
     public String toString() {
         String output = "";
-        output += String.format("Process ID: %d\n ", processID);
-        output += String.format("Service Time: %d\n ", serviceTime);
-        output += String.format("Arrival Time: %d\n ", arrivalTime);
-        output += String.format("Start Time:  %d\n ", startTime);
-        output += String.format("End Time: %d\n ", endTime);
-        output += String.format("Initial Wait Time: %d\n ", initialWaitTime);
-        output += String.format("Total Wait Time: %d\n ", totalWaitTime);
-        output += String.format("Turnaround Time: %d\n ", turnAroundTime);
+        output += String.format("Process ID: %d\n", processID);
+        output += String.format("Service Time: %d\n", serviceTime);
+        output += String.format("Arrival Time: %d\n", arrivalTime);
+        output += String.format("Start Time:  %d\n", startTime);
+        output += String.format("End Time: %d\n", endTime);
+        output += String.format("Initial Wait Time: %d\n", initialWaitTime);
+        output += String.format("Total Wait Time: %d\n", totalWaitTime);
+        output += String.format("Turnaround Time: %d\n", turnAroundTime);
         return output;
     }
 }
