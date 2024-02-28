@@ -10,6 +10,16 @@ public class Queue {
         Queue = new Process[capacity];
     }
 
+    //Peek
+    public Process Peek() throws Exception {
+        if(isEmpty()) {
+            throw new Exception("The Queue is Empty");
+        }
+        Process peekedItem = Queue[0];
+
+        return peekedItem;
+    }
+
     //Enqueue
     public void Enqueue(Process newItem) throws Exception{
         if (this.size == this.capacity) {
