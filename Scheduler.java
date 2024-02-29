@@ -36,6 +36,8 @@ public class Scheduler {
                 break;
             }
 
+            
+
             //Dequeue and Execute Progam
             currentProcess = readyQueue.Dequeue();
             currentProcess.ExecuteProcess(quantum, clockTime);
@@ -48,6 +50,10 @@ public class Scheduler {
                 finishedProcessesSize++;
             } else {
                 readyQueue.Enqueue(currentProcess);
+            }
+            //Check to see if you need to add context switch time
+            if (readyQueue.Peek() != null &&currentProcess != readyQueue.Peek()){
+                clockTime += contextSwitch;
             }
 
             //Increase clock time

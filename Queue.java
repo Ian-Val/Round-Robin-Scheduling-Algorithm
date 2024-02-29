@@ -13,7 +13,7 @@ public class Queue {
     //Peek
     public Process Peek() throws Exception {
         if(isEmpty()) {
-            throw new Exception("The Queue is Empty");
+            return null;
         }
         Process peekedItem = Queue[0];
 

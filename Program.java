@@ -13,7 +13,7 @@ public class Program {
             new Process(4, 20, 80),
             new Process(5, 45, 85)
         };
-        Scheduler scheduler = new Scheduler(10,0, processList);
+        Scheduler scheduler = new Scheduler(10,2, processList);
         
         //Run Scheduler Program
         try {
