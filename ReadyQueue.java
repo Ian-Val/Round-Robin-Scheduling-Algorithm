@@ -1,10 +1,10 @@
-public class Queue {
+public class ReadyQueue {
     int capacity;
     int size;
     Process[] Queue;
 
     //Constructor
-    public Queue (int capacity) {
+    public ReadyQueue (int capacity) {
         this.capacity = capacity;
         this.size = 0;
         Queue = new Process[capacity];
@@ -21,17 +21,19 @@ public class Queue {
     }
 
     //Enqueue
-    public void Enqueue(Process newItem) throws Exception{
+    public void Enqueue(Process newItem){
         if (this.size == this.capacity) {
-            throw new Exception("The Queue is Full");
+            System.err.println("The Queue is Full");
+            return;
         }
         Queue[size] = newItem;
         size++;
     }
     //Dequeue
-    public Process Dequeue() throws Exception {
+    public Process Dequeue(){
         if(isEmpty()) {
-            throw new Exception("The Queue is Empty");
+            System.err.println("The Queue is Empty");
+            return null;
         }
         Process removedItem = Queue[0];
 
@@ -45,6 +47,14 @@ public class Queue {
         return removedItem;
     }
 
+    public boolean Contains(Process process) {
+        for (int i = 0; i < Queue.length; i++) {
+            if (process == null || this.Queue[i] == null) return false;
+            if (process.ProcessID == this.Queue[i].ProcessID);
+            return true;
+        }
+        return false;
+    }
     //Print Queue
     public void PrintQueue() throws Exception {
         if (isEmpty()) {
