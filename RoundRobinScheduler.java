@@ -3,9 +3,8 @@ import java.util.Random;
 
 public class RoundRobinScheduler {
     public static int clockTime = 0, quantum = 2, contextSwitch = 0;
-    public static int numProcesses = 10, finishedProcesses = 0;
+    public static int numProcesses = 3, finishedProcesses = 0;
     public static ArrayList<Process> processList = new ArrayList<>(numProcesses);
-    public static ReadyQueue queue = new ReadyQueue(200);
     public static Random rand = new Random(155);
 
     
@@ -30,40 +29,29 @@ public class RoundRobinScheduler {
         }
     }
     public static void roundRobin(){
+        int operatingIndex = 0;
         while (finishedProcesses < numProcesses) {
-            //Add processes to array only if they arrived
-
-            for (int i = 0; i < processList.size(); i++) {
-                if (processList.get(i).arrivalTime <= clockTime) {
-                    queue.Enqueue(processList.get(i));
-                    //System.out.printf("Process %d is on the queue.\n",processList.get(i).ProcessID);
+            //System.out.println(clockTime);
+            Process currentProcess = processList.get(operatingIndex);
+            if(currentProcess.arrivalTime <= clockTime && !currentProcess.finished) {
+                if (!currentProcess.started) {
+                    currentProcess.started = true;
+                    currentProcess.startTime = clockTime;
+                }
+                currentProcess.timeRemaining -= quantum;
+                if (currentProcess.timeRemaining <= 0){
+                    finishedProcesses++;
+                    operatingIndex++;
+                    currentProcess.endTime = clockTime;
+                    currentProcess.finished = false;
                 }
             }
-            Process currentProcess = queue.Dequeue();
-            runProcess(currentProcess);
             clockTime += quantum;
-            //System.out.printf("Current Time: %d\n",clockTime);
-            //System.out.printf("Finished Processes: %d\n",finishedProcesses);
         }
     }
 
     public static void runProcess(Process currentProcess) {
-        if (currentProcess == null) return;
 
-        if (!currentProcess.started) {
-            currentProcess.startTime = clockTime;
-        }
-        currentProcess.timeRemaining -= quantum;
-        //System.out.printf("Process %d: Time Remaining = %d\n", currentProcess.ProcessID, currentProcess.timeRemaining);
-
-        if (currentProcess.timeRemaining <= 0) {
-            currentProcess.finished = true;
-            currentProcess.endTime = clockTime;
-            finishedProcesses++;
-        }
-        else {
-            queue.Enqueue(currentProcess);
-        }
     }
     public static void main(String[] args) {
         AddProcesses();

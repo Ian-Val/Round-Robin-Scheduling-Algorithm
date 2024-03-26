@@ -22,8 +22,8 @@ public class Process {
         output += String.format("Arrival Time: %d\n", arrivalTime);
         output += String.format("Service Time: %d\n", serviceTime);
 
-        //output += String.format("Start Time: %d\n", startTime);
-        //output += String.format("End Time: %d\n", endTime);
+        output += String.format("Start Time: %d\n", startTime);
+        output += String.format("End Time: %d\n", endTime);
         return output;
     }
 }

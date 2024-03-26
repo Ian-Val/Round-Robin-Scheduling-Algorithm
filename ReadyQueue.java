@@ -27,6 +27,11 @@ public class ReadyQueue {
             return;
         }
         Queue[size] = newItem;
+        try {
+            PrintQueue();
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
         size++;
     }
     //Dequeue
@@ -42,7 +47,11 @@ public class ReadyQueue {
             Queue[i] = temp;
         }
         Queue[size-1] = null;
-
+        try {
+            PrintQueue();
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
         size--;
         return removedItem;
     }
@@ -62,7 +71,7 @@ public class ReadyQueue {
         }
         System.out.print("{ ");
         for (Process item : Queue) {
-            System.out.print(item + " ");
+            System.out.print("Process" + item.ProcessID + " ");
         }
         System.out.println("}");
     }
