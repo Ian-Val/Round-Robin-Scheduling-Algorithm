@@ -1,46 +1,31 @@
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Random;
 
 public class Program {
     public static void main(String[] args) {
 
         //Initialize List
-        Process[] processList = {
-            new Process(1, 75, 0),
-            new Process(2, 40, 10),
-            new Process(3, 25, 10),
-            new Process(4, 20, 80),
-            new Process(5, 45, 85)
-        };
-        Scheduler scheduler = new Scheduler(10,2, processList);
+        Process[] processList = GenerateProcesses(100);
+
+        //Create new Scheduler
+        Scheduler scheduler = new Scheduler(2,1, processList);
         
         //Run Scheduler Program
-        try {
-            processList = scheduler.Run();       
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        processList = scheduler.Run();   
 
-        //Output CSV File
-        try {
-            BufferedWriter output = new BufferedWriter(new FileWriter("output.csv"));
-            output.write("Process ID,Service Time,Arrival Time,Start Time,End Time, Initial Wait Time,Total Wait Time,Turnaround Time");
-            output.newLine();
-            for (Process process : processList) {
-                output.write(process.getProcessID() + ",");
-                output.write(process.getServiceTime() + ",");
-                output.write(process.getArrivalTime() + ",");
-                output.write(process.getStartTime() + ",");
-                output.write(process.getEndTime() + ",");
-                output.write(process.getInitialWaitTime() + ",");
-                output.write(process.getTotalWaitTime() + ",");
-                output.write(process.getTurnAroundTime() + "");
-                output.newLine();
-            }
-            output.close();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+    }
+
+    private static Process[] GenerateProcesses(int numProcesses){
+        Process[] output = new Process[numProcesses];
+        Random rand = new Random(1000);
+        int currentTime = 0;
+        for (int i = 0; i < numProcesses; i++) {
+            output[i] = new Process(i, rand.nextInt(5)+4,currentTime);
+            System.out.println(output[i]);
+            currentTime += rand.nextInt(6)+5;
         }
+        return output;
     }
 }
