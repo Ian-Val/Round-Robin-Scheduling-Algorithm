@@ -1,0 +1,6 @@
+Process ID,Service Time,Arrival Time,Start Time,End Time, Initial Wait Time,Total Wait Time,Turnaround Time
+1,75,0,0,216,0,141,216
+2,40,10,22,149,0,99,139
+3,25,10,34,101,0,66,91
+4,20,80,113,161,0,61,81
+5,45,85,137,233,0,103,148
